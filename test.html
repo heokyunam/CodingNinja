@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>CodingNinja</title>
+</head>
+<body>
+<script src="Game.js"></script>
+<script src="Ninja.js"></script>
+<script src="Stage.js"></script>
+<script src="Soldier.js"></script>
+<script src="DrawingTool.js"></script>
+<script>
+var timerID;
+window.onload = function() {
+	init();
+
+	turn = function() {}
+	timerID=setInterval("update()", 500);
+	runStop = true;
+	var tab = document.getElementById("textarea");
+	tab.onkeydown = onTab;
+	var text = localStorage.getItem("text");
+	if(text != null) tab.value = text;
+}
+function btnclick() {
+	if(timerID != null) return;
+	btnStop();
+	runStop = false;
+	var txt = document.getElementById("textarea").value;
+	ninja.init();
+	stage.init();
+	localStorage.setItem("text", txt);
+	eval(txt);
+	timerID=setInterval("update()", 500);
+}
+
+function btnStop() {
+	console.log("btnstop");
+	clearInterval(timerID);
+	timerID = null;
+}
+function bgm() {
+	document.onoff.midi.stop();
+}
+function onTab(e) {
+	if(e.keyCode == 9) {
+		var tab = e.srcElement;
+
+		var start = tab.selectionStart;
+		var end = tab.selectionEnd;
+		var value = tab.value;
+		tab.value = value.substring(0, start)
+				+ "\t"
+				+ value.substring(end);
+		tab.selectionStart = tab.selectionEnd = start + 1;
+
+		e.preventDefault();
+	}
+	if(e.altKey) {
+		if(e.keyCode == 82) {
+			btnclick();
+		}
+		else if(e.keyCode == 83) {
+			btnStop();
+		}
+	}
+}
+</script>
+<canvas height="240" width="320" id="canvas"></canvas>
+<textarea cols="50" rows="16" id="textarea">turn = function() {
+}</textarea>
+<div style="font-size:x-small;">
+<input type="button" value="run" onclick="btnclick()"/>
+<input type="button" value="stop" onclick="btnStop()"/>
+	<!-- <h1>닌자의 행동 제어</h1> -->
+	<p id="p11"> </p>
+	<p id="p12"> </p>
+	<p id="p13"> </p>
+	<p id="p14"> </p>
+	<p id="p15"> </p>
+	
+	<!-- <h1>닌자 주변 오브젝트 검색</h1> -->
+	<p id="p21"> </p>
+	<p id="p22"> </p>
+	<p id="p23"> </p>
+	<p id="p24"> </p>
+</div>
+
+<embed name="midi" src="http://bgm.heartbrea.kr/?3092158" />
+
+<!-- BGM 정보: http://heartbrea.kr/index.php?mid=bgmstorage&document_srl=3092158&SSOID=tqjqfisdp2018keftdqjci7jr1 -->
+
+</body>
+</html>
