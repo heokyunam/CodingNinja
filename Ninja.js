@@ -49,7 +49,6 @@ var ninja = {
 			for(var i = 0; i < sldrs.length; i++) {
 				if(sldrs[i].x == towardX && sldrs[i].y == towardY) {
 					sldrs[i].isKilled = true;
-					console.log("kill success");
 				}
 			}
 		},

@@ -18,7 +18,6 @@ function init() {
 }
 
 function draw() {
-	console.log("draw");
 	DrawingTool.draw(stage);
 	DrawingTool.drawNinja(ninja);
 	var sdlrs = stage.soldiers;
